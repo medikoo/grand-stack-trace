@@ -1,0 +1,42 @@
+{
+  "name": "grand-stack-trace",
+  "version": "1.0.0",
+  "description": "Debugging (non-production) purpose long stack traces",
+  "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
+  "keywords": [
+    "long-stack-traces",
+    "long-stack-trace",
+    "error",
+    "stack-trace",
+    "promise",
+    "async"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/medikoo/grand-stack-trace.git"
+  },
+  "dependencies": {
+    "es5-ext": "^0.10.45"
+  },
+  "devDependencies": {
+    "eslint": "^5.2",
+    "eslint-config-medikoo": "^1.37",
+    "istanbul": "^0.4.5",
+    "tape": "^4.9.1",
+    "tape-index": "2"
+  },
+  "eslintConfig": {
+    "extends": "medikoo",
+    "root": true,
+    "env": {
+      "node": true
+    }
+  },
+  "scripts": {
+    "coverage": "tape-index && istanbul cover test.index.js",
+    "check-coverage": "npm run coverage && istanbul check-coverage --statements -3 --function 100 --branches -1 --lines -3",
+    "lint": "eslint --ignore-path=.gitignore .",
+    "test": "tape-index && node test.index.js"
+  },
+  "license": "ISC"
+}
