@@ -1,7 +1,7 @@
 "use strict";
 
 const test              = require("tape")
-    , configureEndpoint = require("../configure");
+    , configureEndpoint = require("../../configure/async-method");
 
 test("Should", t => {
 	const dummyEmitter = {

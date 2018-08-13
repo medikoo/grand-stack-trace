@@ -1,7 +1,7 @@
 "use strict";
 
 const { EventEmitter: { prototype: eePrototype } } = require("events")
-    , configure                                  = require("./configure");
+    , configure                                  = require("./configure/async-method");
 
 const onConfig = configure(eePrototype, "on", { callbackIndex: 1 });
 const addListenerConfig = configure(eePrototype, "addListener", { callbackIndex: 1 });
