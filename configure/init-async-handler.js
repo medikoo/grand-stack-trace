@@ -68,15 +68,17 @@ const getBareStack = () => {
 
 module.exports = () => {
 	const previousStack = getBareStack();
-	let previousBridge, previousPrepare;
+	let previousBridge, previousPrepare, hasStarted;
 	return {
 		before() {
 			previousBridge = bridge;
-			bridge = { stack: previousStack, drop: getPreparedStack(prepareDrop) };
 			previousPrepare = Error.prepareStackTrace;
+			hasStarted = true;
+			bridge = { stack: previousStack, drop: getPreparedStack(prepareDrop) };
 			Error.prepareStackTrace = prepareStackTrace;
 		},
 		after() {
+			if (!hasStarted) return;
 			bridge = previousBridge;
 			Error.prepareStackTrace = previousPrepare;
 		}
