@@ -34,7 +34,6 @@
   },
   "scripts": {
     "coverage": "tape-index && istanbul cover test.index.js",
-    "check-coverage": "npm run coverage && istanbul check-coverage --statements -3 --function 100 --branches -1 --lines -3",
     "lint": "eslint --ignore-path=.gitignore .",
     "test": "tape-index && node test.index.js"
   },
