@@ -1,18 +1,28 @@
 "use strict";
 
 const { EventEmitter: { prototype: eePrototype } } = require("events")
-    , configure                                  = require("./configure/async-method");
+    , ensureCallable                             = require("es5-ext/object/valid-callable")
+    , init                                       = require("./configure/init-async-handler");
 
-const onConfig = configure(eePrototype, "on", { callbackIndex: 1 });
-const addListenerConfig = configure(eePrototype, "addListener", { callbackIndex: 1 });
+require("./configure/internal-file-names").add(__filename);
 
+const asyncMethod = eePrototype.on;
+
+const asyncMethodWrapper = function (type, handler, ...args) {
+	ensureCallable(handler);
+	const { before, after } = init();
+	return asyncMethod.call(
+		this,
+		type,
+		function (...callbackArgs) {
+			before();
+			try { return handler.call(this, ...callbackArgs); }
+			finally { after(); }
+		},
+		...args
+	);
+};
 module.exports = {
-	setup() {
-		onConfig.setup();
-		addListenerConfig.setup();
-	},
-	restore() {
-		onConfig.restore();
-		addListenerConfig.restore();
-	}
+	setup() { eePrototype.on = eePrototype.addListener = asyncMethodWrapper; },
+	restore() { eePrototype.on = eePrototype.addListener = asyncMethod; }
 };
