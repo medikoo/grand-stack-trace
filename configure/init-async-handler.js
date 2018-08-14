@@ -34,7 +34,7 @@ const findDropLength = current => {
 const prepareStackTrace = (error, structuredStackTrace) => {
 	structuredStackTrace = filterInternalTrace(structuredStackTrace);
 
-	if (bridge) {
+	if (bridge && bridge.drop.length) {
 		const dropLength = findDropLength(structuredStackTrace);
 		if (!dropLength) {
 			const message =
@@ -43,7 +43,6 @@ const prepareStackTrace = (error, structuredStackTrace) => {
 			delete Error.prepareStackTrace;
 			throw new Error(message);
 		}
-
 		structuredStackTrace = structuredStackTrace.slice(0, -dropLength);
 	}
 
