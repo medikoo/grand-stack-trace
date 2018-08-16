@@ -69,7 +69,7 @@ require("grand-stack-trace/event-emitter");
 
 [nix-build-image]: https://semaphoreci.com/api/v1/medikoo-org/grand-stack-trace/branches/master/shields_badge.svg
 [nix-build-url]: https://semaphoreci.com/medikoo-org/grand-stack-trace
-[win-build-image]: https://ci.appveyor.com/api/projects/status/?svg=true
+[win-build-image]: https://ci.appveyor.com/api/projects/status/sbd924sdrdy375j5?svg=true
 [win-build-url]: https://ci.appveyor.com/project/medikoo/grand-stack-trace
 [cov-image]: https://img.shields.io/codecov/c/github/medikoo/grand-stack-trace.svg
 [cov-url]: https://codecov.io/gh/medikoo/grand-stack-trace
