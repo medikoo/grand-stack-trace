@@ -1,6 +1,6 @@
 "use strict";
 
-// For this to work all stack trace frames need to be exposed
+// For reliable outcome all stack trace frames need to be exposed
 Error.stackTraceLimit = Infinity;
 
 const internalFileNames = require("./internal-file-names");
