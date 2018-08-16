@@ -2,7 +2,7 @@
 
 const ensureFunction = require("es5-ext/function/valid-function")
     , isCallable     = require("es5-ext/object/is-callable")
-    , init           = require("./init-async-handler");
+    , init           = require("./init-async-hook");
 
 const { call } = Function.prototype;
 
