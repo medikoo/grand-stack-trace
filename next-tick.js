@@ -1,3 +1,5 @@
+// Hooks for Node.js process.nextTick
+
 "use strict";
 
 const ensureCallable = require("es5-ext/object/valid-callable")

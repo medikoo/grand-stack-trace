@@ -1,3 +1,5 @@
+// Configure hooks for provided Promise implementation
+
 "use strict";
 
 const ensureFunction = require("es5-ext/function/valid-function")

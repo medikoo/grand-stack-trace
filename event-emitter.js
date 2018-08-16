@@ -1,3 +1,5 @@
+// Hooks for Node.js EventEtmitter
+
 "use strict";
 
 const { EventEmitter: { prototype: eePrototype } } = require("events")

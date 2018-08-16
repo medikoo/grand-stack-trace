@@ -1,3 +1,9 @@
+// Initializes hook for async operation, returns { after, before }  method which should
+// be invoked for async callback we want to cover
+// e.g. in case of setTimeout, `main` (exports) function should be invoked when we register
+// callback to setTimeout, then `before` should be invoked right before setTimeout invokes its
+// callback, and `after` should be invoked after callback returns
+
 "use strict";
 
 // For reliable outcome all stack trace frames need to be exposed

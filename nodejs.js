@@ -1,3 +1,5 @@
+// Hooks for any async operations within Node.js v8+ proceses
+
 "use strict";
 
 const asyncHooks = require("async_hooks")
