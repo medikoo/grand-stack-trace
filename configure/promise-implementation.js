@@ -63,7 +63,7 @@ module.exports = PromiseConstructor => {
 			PromiseConstructor.prototype.catch = catchMethodWrapper;
 			if (finallyMethod) PromiseConstructor.prototype.finally = finallyMethodWrapper;
 		},
-		restore() {
+		teardown() {
 			PromiseConstructor.prototype.then = thenMethod;
 			PromiseConstructor.prototype.catch = catchMethod;
 			if (finallyMethod) PromiseConstructor.prototype.finally = finallyMethod;

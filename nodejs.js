@@ -31,4 +31,4 @@ const asyncHook = asyncHooks.createHook({
 	promiseResolve: after
 });
 
-module.exports = { setup: () => asyncHook.enable(), restore: () => asyncHook.disable() };
+module.exports = { setup: () => asyncHook.enable(), teardown: () => asyncHook.disable() };

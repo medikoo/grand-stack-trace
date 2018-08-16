@@ -4,7 +4,7 @@ const test             = require("tape")
     , configurePromise = require("../../configure/promise-implementation");
 
 test("Should", t => {
-	const { setup, restore } = configurePromise(Promise);
+	const { setup, teardown } = configurePromise(Promise);
 	setup();
 
 	const promise = Promise.resolve()
@@ -41,7 +41,7 @@ test("Should", t => {
 			t.equal(stackItems[3].endsWith(`${ __filename }:36:17)`), true);
 			t.end();
 		});
-		restore();
+		teardown();
 		t.end();
 	});
 });

@@ -2,7 +2,7 @@
 
 const test               = require("tape")
     , { EventEmitter }   = require("events")
-    , { setup, restore } = require("../event-emitter");
+    , { setup, teardown } = require("../event-emitter");
 
 test("Should", t => {
 	setup();
@@ -19,6 +19,6 @@ test("Should", t => {
 		t.end();
 	});
 
-	restore();
+	teardown();
 	t.end();
 });

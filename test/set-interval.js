@@ -1,7 +1,7 @@
 "use strict";
 
 const test               = require("tape")
-    , { setup, restore } = require("../set-interval");
+    , { setup, teardown } = require("../set-interval");
 
 test("Should", t => {
 	setup();
@@ -17,7 +17,7 @@ test("Should", t => {
 			t.end();
 		});
 
-		restore();
+		teardown();
 		t.end();
 	});
 });

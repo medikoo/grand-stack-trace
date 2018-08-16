@@ -26,5 +26,5 @@ const asyncMethodWrapper = function (type, handler, ...args) {
 };
 module.exports = {
 	setup() { eePrototype.on = eePrototype.addListener = asyncMethodWrapper; },
-	restore() { eePrototype.on = eePrototype.addListener = asyncMethod; }
+	teardown() { eePrototype.on = eePrototype.addListener = asyncMethod; }
 };

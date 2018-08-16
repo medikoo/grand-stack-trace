@@ -1,7 +1,7 @@
 "use strict";
 
 const test               = require("tape")
-    , { setup, restore } = require("../nodejs");
+    , { setup, teardown } = require("../nodejs");
 
 test("Should bridge stacks of", t => {
 	setup();
@@ -38,7 +38,7 @@ test("Should bridge stacks of", t => {
 					t.end();
 				});
 
-				restore();
+				teardown();
 				t.end();
 			});
 		});

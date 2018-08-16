@@ -1,7 +1,7 @@
 "use strict";
 
 const test               = require("tape")
-    , { setup, restore } = require("../promise");
+    , { setup, teardown } = require("../promise");
 
 test("Should", t => {
 	setup();
@@ -16,7 +16,7 @@ test("Should", t => {
 			t.end();
 		});
 
-		restore();
+		teardown();
 		t.end();
 	});
 });

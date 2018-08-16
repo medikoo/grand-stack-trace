@@ -24,5 +24,5 @@ const asyncMethodWrapper = function (handler, ...args) {
 };
 module.exports = {
 	setup() { process.nextTick = asyncMethodWrapper; },
-	restore() { process.nextTick = asyncMethod; }
+	teardown() { process.nextTick = asyncMethod; }
 };
