@@ -54,17 +54,17 @@ module.exports = PromiseConstructor => {
 		);
 	};
 	const catchMethodWrapper = getCatchFinallyWrapper(catchMethod);
-	const finallyMethodWrapper = getCatchFinallyWrapper(finallyMethod);
+	const finallyMethodWrapper = finallyMethod ? getCatchFinallyWrapper(finallyMethod) : null;
 	return {
 		setup() {
 			PromiseConstructor.prototype.then = thenMethodWrapper;
 			PromiseConstructor.prototype.catch = catchMethodWrapper;
-			PromiseConstructor.prototype.finally = finallyMethodWrapper;
+			if (finallyMethod) PromiseConstructor.prototype.finally = finallyMethodWrapper;
 		},
 		restore() {
 			PromiseConstructor.prototype.then = thenMethod;
 			PromiseConstructor.prototype.catch = catchMethod;
-			PromiseConstructor.prototype.finally = finallyMethod;
+			if (finallyMethod) PromiseConstructor.prototype.finally = finallyMethod;
 		}
 	};
 };
