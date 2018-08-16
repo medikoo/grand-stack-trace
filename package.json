@@ -16,11 +16,11 @@
     "url": "https://github.com/medikoo/grand-stack-trace.git"
   },
   "dependencies": {
-    "es5-ext": "^0.10.45"
+    "es5-ext": "^0.10.46"
   },
   "devDependencies": {
-    "eslint": "^5.2",
-    "eslint-config-medikoo": "^1.37",
+    "eslint": "^5.3",
+    "eslint-config-medikoo": "^1.41",
     "istanbul": "^0.4.5",
     "tape": "^4.9.1",
     "tape-index": "2"
