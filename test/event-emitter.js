@@ -1,7 +1,7 @@
 "use strict";
 
-const test               = require("tape")
-    , { EventEmitter }   = require("events")
+const test                = require("tape")
+    , { EventEmitter }    = require("events")
     , { setup, teardown } = require("../event-emitter");
 
 test("Should", t => {
