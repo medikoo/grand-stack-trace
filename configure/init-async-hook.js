@@ -45,7 +45,9 @@ const prepareStackTrace = (error, structuredStackTrace) => {
 		if (!dropLength) {
 			const message =
 				"Unexpected stack state: registered drop not present in current stack\n" +
-				`Drop:${ bridge.drop.join("\n") }\nStack:${ structuredStackTrace.join("\n") }`;
+				`    Drop:\n        ${ bridge.drop.join("\n        ") }\n    Stack:\n        ${
+					structuredStackTrace.join("\n        ")
+				}`;
 			delete Error.prepareStackTrace;
 			throw new Error(message);
 		}
