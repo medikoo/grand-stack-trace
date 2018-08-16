@@ -3,7 +3,7 @@
 const asyncHooks = require("async_hooks")
     , init       = require("./configure/init-async-hook");
 
-require("./configure/internal-file-names")
+require("./configure/filtered-stack-module-names")
 	.add(__filename)
 	.add("internal/async_hooks.js")
 	.add("internal/timers.js")

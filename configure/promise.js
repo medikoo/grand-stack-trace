@@ -6,7 +6,7 @@ const ensureFunction = require("es5-ext/function/valid-function")
 
 const { call } = Function.prototype;
 
-require("./internal-file-names").add(__filename);
+require("./filtered-stack-module-names").add(__filename);
 
 const getCatchFinallyWrapper = asyncMethod =>
 	function (onResolved, ...args) {

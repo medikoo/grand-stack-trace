@@ -3,7 +3,7 @@
 // For reliable outcome all stack trace frames need to be exposed
 Error.stackTraceLimit = Infinity;
 
-const internalFileNames = require("./internal-file-names");
+const internalFileNames = require("./filtered-stack-module-names");
 internalFileNames.add(__filename);
 
 let bridge = null;
