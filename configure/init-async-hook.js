@@ -74,20 +74,18 @@ const getBareStack = () => {
 };
 
 module.exports = () => {
-	const previousStack = getBareStack();
-	let previousBridge, previousPrepare, hasStarted;
+	const previousStack = getBareStack(), shadowedStates = [];
 	return {
 		before() {
-			previousBridge = bridge;
-			previousPrepare = Error.prepareStackTrace;
-			hasStarted = true;
+			shadowedStates.push({ bridge, prepareStackTrace: Error.prepareStackTrace });
 			bridge = { stack: previousStack, drop: getPreparedStack(prepareDrop) };
 			Error.prepareStackTrace = prepareStackTrace;
 		},
 		after() {
-			if (!hasStarted) return;
-			bridge = previousBridge;
-			Error.prepareStackTrace = previousPrepare;
+			const stateToRestore = shadowedStates.pop();
+			if (!stateToRestore) return;
+			({ bridge } = stateToRestore);
+			Error.prepareStackTrace = stateToRestore.prepareStackTrace;
 		}
 	};
 };

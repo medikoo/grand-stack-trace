@@ -8,6 +8,8 @@ test("Should", t => {
 
 	before();
 	const stackItems = new Error("Foo").stack.split("\n");
+	before();
+	after();
 	after();
 
 	t.test("Bridge stacks", t => {
@@ -21,5 +23,11 @@ test("Should", t => {
 		t.end();
 	});
 
+	const syncStackItems = new Error("Foo").stack.split("\n");
+	t.test("Handle recursive async operations", t => {
+		t.equal(syncStackItems[1].endsWith(`${ __filename }:26:25)`), true);
+		t.notEqual(syncStackItems[2], "From previous event:");
+		t.end();
+	});
 	t.end();
 });
