@@ -10,19 +10,18 @@ const { call } = Function.prototype;
 
 require("../stack-filtered-module-names").add(__filename);
 
+const getCallbackHandler = (before, onResolved, after) =>
+	function (...callbackArgs) {
+		before();
+		try { return call.call(onResolved, this, ...callbackArgs); }
+		finally { after(); }
+	};
+
 const getCatchFinallyWrapper = asyncMethod =>
 	function (onResolved, ...args) {
 		if (!isCallable(onResolved)) return asyncMethod.call(this, onResolved, ...args);
 		const { before, after } = init();
-		return asyncMethod.call(
-			this,
-			function (...callbackArgs) {
-				before();
-				try { return call.call(onResolved, this, ...callbackArgs); }
-				finally { after(); }
-			},
-			...args
-		);
+		return asyncMethod.call(this, getCallbackHandler(before, onResolved, after), ...args);
 	};
 
 module.exports = PromiseConstructor => {
@@ -38,20 +37,8 @@ module.exports = PromiseConstructor => {
 		const { before, after } = init();
 		return thenMethod.call(
 			this,
-			isCallable(onFulfilled)
-				? function (...callbackArgs) {
-						before();
-						try { return call.call(onFulfilled, this, ...callbackArgs); }
-						finally { after(); }
-				  }
-				: onFulfilled,
-			isCallable(onRejected)
-				? function (...callbackArgs) {
-						before();
-						try { return call.call(onRejected, this, ...callbackArgs); }
-						finally { after(); }
-				  }
-				: onRejected,
+			isCallable(onFulfilled) ? getCallbackHandler(before, onFulfilled, after) : onFulfilled,
+			isCallable(onRejected) ? getCallbackHandler(before, onRejected, after) : onRejected,
 			...args
 		);
 	};
