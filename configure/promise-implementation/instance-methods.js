@@ -2,9 +2,10 @@
 
 "use strict";
 
-const ensureFunction = require("es5-ext/function/valid-function")
-    , isCallable     = require("es5-ext/object/is-callable")
-    , init           = require("../init-async-hook");
+const ensureFunction    = require("es5-ext/function/valid-function")
+    , isCallable        = require("es5-ext/object/is-callable")
+    , init              = require("../init-async-hook")
+    , configureThenable = require("../../lib/configure-thenable");
 
 const { call } = Function.prototype;
 
@@ -13,7 +14,7 @@ require("../stack-filtered-module-names").add(__filename);
 const getCallbackHandler = (before, onResolved, after) =>
 	function (...callbackArgs) {
 		before();
-		try { return call.call(onResolved, this, ...callbackArgs); }
+		try { return configureThenable(call.call(onResolved, this, ...callbackArgs), init); }
 		finally { after(); }
 	};
 
