@@ -7,6 +7,7 @@ const asyncHooks = require("async_hooks")
 
 require("./configure/stack-filtered-module-names")
 	.add(__filename)
+	.add("domain.js")
 	.add("internal/async_hooks.js")
 	.add("internal/timers.js")
 	.add("internal/process/next_tick.js")
