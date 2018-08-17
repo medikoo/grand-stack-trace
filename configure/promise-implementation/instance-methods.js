@@ -4,11 +4,11 @@
 
 const ensureFunction = require("es5-ext/function/valid-function")
     , isCallable     = require("es5-ext/object/is-callable")
-    , init           = require("./init-async-hook");
+    , init           = require("../init-async-hook");
 
 const { call } = Function.prototype;
 
-require("./stack-filtered-module-names").add(__filename);
+require("../stack-filtered-module-names").add(__filename);
 
 const getCatchFinallyWrapper = asyncMethod =>
 	function (onResolved, ...args) {
