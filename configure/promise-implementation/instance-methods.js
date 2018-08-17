@@ -1,4 +1,4 @@
-// Configure hooks for provided Promise implementation
+// Configure hooks for provided Promise implementation instance methods
 
 "use strict";
 
