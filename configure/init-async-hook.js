@@ -54,7 +54,7 @@ const prepareStackTrace = (error, structuredStackTrace) => {
 		structuredStackTrace = structuredStackTrace.slice(0, -dropLength);
 	}
 
-	let stack = `${ error.name }${ error.message ? ": " : "" }${ error.message }\n${
+	let stack = `${ error }\n${
 		structuredStackTrace.map(callSite => `    at ${ callSite }`).join("\n")
 	}`;
 	if (bridge) stack += `\nFrom previous event:\n${ bridge.stack }`;
