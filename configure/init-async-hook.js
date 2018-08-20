@@ -9,6 +9,7 @@
 // For reliable outcome all stack trace frames need to be exposed
 Error.stackTraceLimit = Infinity;
 
+const { wrapCallSite } = require("source-map-support");
 const internalFileNames = require("./stack-filtered-module-names");
 internalFileNames.add(__filename);
 
@@ -17,7 +18,8 @@ let bridge = null;
 const filterInternalTrace = structuredStackTrace =>
 	structuredStackTrace.filter(callSite => !internalFileNames.has(callSite.getFileName()));
 
-const prepareDrop = (error, structuredStackTrace) => filterInternalTrace(structuredStackTrace);
+const prepareDrop = (error, structuredStackTrace) =>
+	filterInternalTrace(structuredStackTrace).map(wrapCallSite);
 
 const isCallSiteSame = (callSiteA, callSiteB) =>
 	callSiteA.getFileName() === callSiteB.getFileName() &&
@@ -38,7 +40,7 @@ const findDropLength = current => {
 };
 
 const prepareStackTrace = (error, structuredStackTrace) => {
-	structuredStackTrace = filterInternalTrace(structuredStackTrace);
+	structuredStackTrace = filterInternalTrace(structuredStackTrace).map(wrapCallSite);
 
 	if (bridge && bridge.drop.length) {
 		const dropLength = findDropLength(structuredStackTrace);
