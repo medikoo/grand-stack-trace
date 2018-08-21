@@ -12,7 +12,7 @@ const asyncMethod = eePrototype.on;
 
 const asyncMethodWrapper = function (type, handler, ...args) {
 	ensureCallable(handler);
-	const { before, after } = init();
+	const { before, after } = init("events");
 	return asyncMethod.call(
 		this,
 		type,

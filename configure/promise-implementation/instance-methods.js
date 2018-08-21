@@ -21,7 +21,7 @@ const getCallbackHandler = (before, onResolved, after) =>
 const getCatchFinallyWrapper = asyncMethod =>
 	function (onResolved, ...args) {
 		if (!isCallable(onResolved)) return asyncMethod.call(this, onResolved, ...args);
-		const { before, after } = init();
+		const { before, after } = init("promise-catch-finally");
 		return asyncMethod.call(this, getCallbackHandler(before, onResolved, after), ...args);
 	};
 
@@ -35,7 +35,7 @@ module.exports = PromiseConstructor => {
 		if (!isCallable(onFulfilled) && !isCallable(onRejected)) {
 			return thenMethod.call(this, onFulfilled, onRejected, ...args);
 		}
-		const { before, after } = init();
+		const { before, after } = init("promise-then");
 		return thenMethod.call(
 			this,
 			isCallable(onFulfilled) ? getCallbackHandler(before, onFulfilled, after) : onFulfilled,

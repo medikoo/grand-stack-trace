@@ -22,7 +22,7 @@ const after = id => {
 	hooks.delete(id);
 };
 const asyncHook = asyncHooks.createHook({
-	init(id) { hooks.set(id, init()); },
+	init(id) { hooks.set(id, init("async-hooks")); },
 	before(id) {
 		const hook = hooks.get(id);
 		if (hook) hook.before();

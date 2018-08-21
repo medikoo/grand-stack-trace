@@ -47,9 +47,9 @@ const prepareStackTrace = (error, structuredStackTrace) => {
 		if (!dropLength) {
 			const message =
 				"Unexpected stack state: registered drop not present in current stack\n" +
-				`    Drop:\n        ${ bridge.drop.join("\n        ") }\n    Stack:\n        ${
-					structuredStackTrace.join("\n        ")
-				}`;
+				`    Bridge name: ${ bridge.name }\n    Drop:\n        ${
+					bridge.drop.join("\n        ")
+				}\n    Stack:\n        ${ structuredStackTrace.join("\n        ") }`;
 			delete Error.prepareStackTrace;
 			throw new Error(message);
 		}
@@ -75,12 +75,12 @@ const getBareStack = () => {
 	return stack.slice(stack.indexOf("\n") + 1);
 };
 
-module.exports = () => {
+module.exports = name => {
 	const previousStack = getBareStack(), shadowedStates = [];
 	return {
 		before() {
 			shadowedStates.push({ bridge, prepareStackTrace: Error.prepareStackTrace });
-			bridge = { stack: previousStack, drop: getPreparedStack(prepareDrop) };
+			bridge = { stack: previousStack, drop: getPreparedStack(prepareDrop), name };
 			Error.prepareStackTrace = prepareStackTrace;
 		},
 		after() {

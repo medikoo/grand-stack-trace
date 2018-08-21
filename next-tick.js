@@ -11,7 +11,7 @@ const asyncMethod = process.nextTick;
 
 const asyncMethodWrapper = function (handler, ...args) {
 	ensureCallable(handler);
-	const { before, after } = init();
+	const { before, after } = init("process-next-tick");
 	return asyncMethod.call(
 		this,
 		function (...callbackArgs) {

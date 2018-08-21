@@ -14,7 +14,7 @@ const memoize = fn => {
 	let result;
 	return () => {
 		if (result) return result;
-		return result = fn();
+		return result = fn("promise-constructor");
 	};
 };
 
