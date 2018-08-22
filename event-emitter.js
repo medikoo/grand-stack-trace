@@ -9,7 +9,8 @@ const { EventEmitter: { prototype: eePrototype } } = require("events")
 require("./configure/stack-filtered-module-names")
 	.add(__filename)
 	.add("events.js")
-	.add("internal/bootstrap/node.js");
+	.add("internal/bootstrap/node.js")
+	.add("internal/process/promises.js");
 
 const asyncMethod = eePrototype.on;
 
