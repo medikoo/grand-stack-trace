@@ -13,7 +13,7 @@ const { wrapCallSite } = require("source-map-support");
 const internalFileNames = require("./stack-filtered-module-names");
 internalFileNames.add(__filename);
 
-let bridge = null;
+let bridge = null, isBareRequested = false;
 
 const filterInternalTrace = structuredStackTrace =>
 	structuredStackTrace.filter(callSite => !internalFileNames.has(callSite.getFileName()));
@@ -56,11 +56,10 @@ const prepareStackTrace = (error, structuredStackTrace) => {
 		structuredStackTrace = structuredStackTrace.slice(0, -dropLength);
 	}
 
-	let stack = `${ error }\n${
-		structuredStackTrace.map(callSite => `    at ${ callSite }`).join("\n")
-	}`;
+	let stack = structuredStackTrace.map(callSite => `    at ${ callSite }`).join("\n");
 	if (bridge) stack += `\nFrom previous event:\n${ bridge.stack }`;
-	return stack;
+	if (isBareRequested) return stack;
+	return `${ error }\n${ stack }`;
 };
 
 const getPreparedStack = prepare => {
@@ -71,8 +70,9 @@ const getPreparedStack = prepare => {
 };
 
 const getBareStack = () => {
-	const stack = getPreparedStack(prepareStackTrace);
-	return stack.slice(stack.indexOf("\n") + 1);
+	isBareRequested = true;
+	try { return getPreparedStack(prepareStackTrace); }
+	finally { isBareRequested = false; }
 };
 
 module.exports = name => {
