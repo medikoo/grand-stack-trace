@@ -10,7 +10,8 @@ require("./configure/stack-filtered-module-names")
 	.add(__filename)
 	.add("events.js")
 	.add("internal/bootstrap/node.js")
-	.add("internal/process/promises.js");
+	.add("internal/process/promises.js")
+	.add("internal/streams/destroy.js");
 
 const asyncMethod = eePrototype.on;
 
