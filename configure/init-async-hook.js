@@ -9,8 +9,9 @@
 // For reliable outcome all stack trace frames need to be exposed
 Error.stackTraceLimit = Infinity;
 
-const { wrapCallSite } = require("source-map-support");
-const internalFileNames = require("./stack-filtered-module-names");
+const { wrapCallSite }  = require("source-map-support")
+    , internalFileNames = require("./stack-filtered-module-names");
+
 internalFileNames.add(__filename);
 
 let bridge = null, isBareRequested = false;
