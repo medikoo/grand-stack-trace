@@ -9,7 +9,8 @@
 // For reliable outcome all stack trace frames need to be exposed
 Error.stackTraceLimit = Infinity;
 
-const { wrapCallSite }  = require("source-map-support")
+const isObject          = require("es5-ext/object/is-object")
+    , { wrapCallSite }  = require("source-map-support")
     , internalFileNames = require("./stack-filtered-module-names");
 
 internalFileNames.add(__filename);
@@ -19,8 +20,7 @@ let bridge = null, isBareRequested = false;
 const filterInternalTrace = structuredStackTrace =>
 	structuredStackTrace.filter(callSite => !internalFileNames.has(callSite.getFileName()));
 
-const prepareDrop = (error, structuredStackTrace) =>
-	filterInternalTrace(structuredStackTrace).map(wrapCallSite);
+const prepareDrop = (error, structuredStackTrace) => structuredStackTrace;
 
 const isCallSiteSame = (callSiteA, callSiteB) =>
 	callSiteA.getFileName() === callSiteB.getFileName() &&
@@ -41,9 +41,7 @@ const findDropLength = current => {
 };
 
 const prepareStackTrace = (error, structuredStackTrace) => {
-	structuredStackTrace = filterInternalTrace(structuredStackTrace).map(wrapCallSite);
-
-	if (bridge && bridge.drop.length) {
+	if (bridge && bridge.drop) {
 		const dropLength = findDropLength(structuredStackTrace);
 		if (!dropLength) {
 			const message =
@@ -56,6 +54,7 @@ const prepareStackTrace = (error, structuredStackTrace) => {
 		}
 		structuredStackTrace = structuredStackTrace.slice(0, -dropLength);
 	}
+	structuredStackTrace = filterInternalTrace(structuredStackTrace).map(wrapCallSite);
 
 	let stack = structuredStackTrace.map(callSite => `    at ${ callSite }`).join("\n");
 	if (bridge) stack += `\nFrom previous event:\n${ bridge.stack }`;
@@ -76,12 +75,17 @@ const getBareStack = () => {
 	finally { isBareRequested = false; }
 };
 
-module.exports = name => {
+module.exports = (name, options = { skipDrop: false }) => {
 	const previousStack = getBareStack(), shadowedStates = [];
+	if (!isObject(options)) options = {};
 	return {
 		before() {
 			shadowedStates.push({ bridge, prepareStackTrace: Error.prepareStackTrace });
-			bridge = { stack: previousStack, drop: getPreparedStack(prepareDrop), name };
+			bridge = {
+				stack: previousStack,
+				drop: options.skipDrop ? null : getPreparedStack(prepareDrop),
+				name
+			};
 			Error.prepareStackTrace = prepareStackTrace;
 		},
 		after() {
