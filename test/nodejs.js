@@ -1,6 +1,6 @@
 "use strict";
 
-const test               = require("tape")
+const test                = require("tape")
     , { setup, teardown } = require("../nodejs");
 
 test("Should bridge stacks of", t => {
