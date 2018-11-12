@@ -3,14 +3,14 @@
 const test             = require("tape")
     , configurePromise = require("../../../configure/promise-implementation/instance-methods");
 
-test("Should", t => {
+test("configure/promise-implementation/instance-methods", t => {
 	const { setup, teardown } = configurePromise(Promise);
 	setup();
 
 	const promise = Promise.resolve()
 		.then(() => {
 			const stackItems = new Error("Test").stack.split("\n");
-			t.test("Bridge stacks among 'then'", t => {
+			t.test("Should bridge stacks among 'then'", t => {
 				t.equal(stackItems[1].endsWith(`${ __filename }:12:23)`), true);
 				t.equal(stackItems[2], "From previous event:");
 				t.equal(stackItems[3].endsWith(`${ __filename }:11:4)`), true);
@@ -21,7 +21,7 @@ test("Should", t => {
 		})
 		.catch(() => {
 			const stackItems = new Error("Test").stack.split("\n");
-			t.test("Bridge stacks among 'catch'", t => {
+			t.test("Should bridge stacks among 'catch'", t => {
 				t.equal(stackItems[1].endsWith(`${ __filename }:23:23)`), true);
 				t.equal(stackItems[2], "From previous event:");
 				t.equal(stackItems[3].endsWith(`${ __filename }:22:9)`), true);
@@ -35,7 +35,7 @@ test("Should", t => {
 	}
 	promise.finally(() => {
 		const stackItems = new Error("Test").stack.split("\n");
-		t.test("Bridge stacks among 'finally'", t => {
+		t.test("Should bridge stacks among 'finally'", t => {
 			t.equal(stackItems[1].endsWith(`${ __filename }:37:22)`), true);
 			t.equal(stackItems[2], "From previous event:");
 			t.equal(stackItems[3].endsWith(`${ __filename }:36:17)`), true);

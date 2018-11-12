@@ -3,7 +3,7 @@
 const test = require("tape")
     , init = require("../../configure/init-async-hook");
 
-test("Should", t => {
+test("configure/init-async-hooks", t => {
 	const { before, after } = init();
 
 	before();
@@ -12,19 +12,19 @@ test("Should", t => {
 	after();
 	after();
 
-	t.test("Bridge stacks", t => {
+	t.test("Should bridge stacks", t => {
 		t.equal(stackItems[1].endsWith(`${ __filename }:10:21)`), true);
 		t.equal(stackItems[2], "From previous event:");
 		t.equal(stackItems[3].endsWith(`${ __filename }:7:28)`), true);
 		t.end();
 	});
-	t.test("Resolve top message", t => {
+	t.test("Should resolve top message", t => {
 		t.equal(stackItems[0], "Error: Foo");
 		t.end();
 	});
 
 	const syncStackItems = new Error("Foo").stack.split("\n");
-	t.test("Handle recursive async operations", t => {
+	t.test("Should handle recursive async operations", t => {
 		t.equal(syncStackItems[1].endsWith(`${ __filename }:26:25)`), true);
 		t.notEqual(syncStackItems[2], "From previous event:");
 		t.end();

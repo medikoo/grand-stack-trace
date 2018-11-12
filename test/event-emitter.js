@@ -4,7 +4,7 @@ const test                = require("tape")
     , { EventEmitter }    = require("events")
     , { setup, teardown } = require("../event-emitter");
 
-test("Should", t => {
+test("event-emitter", t => {
 	setup();
 
 	let stackItems;

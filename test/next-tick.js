@@ -1,9 +1,9 @@
 "use strict";
 
-const test               = require("tape")
+const test                = require("tape")
     , { setup, teardown } = require("../next-tick");
 
-test("Should", t => {
+test("next-tick", t => {
 	setup();
 
 	let stackItems;

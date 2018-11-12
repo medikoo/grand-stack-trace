@@ -3,7 +3,7 @@
 const test                = require("tape")
     , { setup, teardown } = require("../nodejs");
 
-test("Should bridge stacks of", t => {
+test("nodejs", t => {
 	setup();
 
 	setImmediate(() => {

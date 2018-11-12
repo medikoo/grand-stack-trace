@@ -3,7 +3,7 @@
 const test                = require("tape")
     , { setup, teardown } = require("../promise");
 
-test("Should", t => {
+test("promise", t => {
 	setup();
 
 	Promise.all([{ then(onFulfilled) { onFulfilled(new Error("Test").stack.split("\n")); } }])
