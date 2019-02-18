@@ -22,7 +22,7 @@
   "devDependencies": {
     "eslint": "^5.14",
     "eslint-config-medikoo": "^1.41",
-    "istanbul": "^0.4.5",
+    "nyc": "^13.3.0",
     "tape": "^4.10.1",
     "tape-index": "2"
   },
@@ -34,7 +34,7 @@
     }
   },
   "scripts": {
-    "coverage": "tape-index && istanbul cover test.index.js",
+    "coverage": "nyc --reporter=lcov --reporter=html --reporter=text-summary npm test",
     "lint": "eslint --ignore-path=.gitignore .",
     "test": "tape-index && node test.index.js"
   },
