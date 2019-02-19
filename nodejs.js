@@ -5,13 +5,7 @@
 const asyncHooks = require("async_hooks")
     , init       = require("./configure/init-async-hook");
 
-require("./configure/stack-filtered-module-names")
-	.add(__filename)
-	.add("domain.js")
-	.add("internal/async_hooks.js")
-	.add("internal/timers.js")
-	.add("internal/process/next_tick.js")
-	.add("timers.js");
+require("./configure/stack-filtered-module-names").add(__filename).add("internal/async_hooks.js");
 
 const hooks = new Map();
 
