@@ -11,7 +11,8 @@ Error.stackTraceLimit = Infinity;
 
 const isObject          = require("es5-ext/object/is-object")
     , { wrapCallSite }  = require("source-map-support")
-    , internalFileNames = require("./stack-filtered-module-names");
+    , internalFileNames = require("./stack-filtered-module-names")
+    , formatErrorString = require("../lib/private/format-error-string");
 
 internalFileNames.add(__filename);
 
@@ -59,7 +60,7 @@ const prepareStackTrace = (error, structuredStackTrace) => {
 	let stack = structuredStackTrace.map(callSite => `    at ${ callSite }`).join("\n");
 	if (bridge) stack += `\nFrom previous event:\n${ bridge.stack }`;
 	if (isBareRequested) return stack;
-	return `${ error }\n${ stack }`;
+	return `${ formatErrorString(error) }\n${ stack }`;
 };
 
 const getPreparedStack = prepare => {
