@@ -23,6 +23,7 @@
     "eslint": "^5.14",
     "eslint-config-medikoo": "^1.41",
     "nyc": "^13.3.0",
+    "prettier-elastic": "^1.16.4",
     "tape": "^4.10.1",
     "tape-index": "2"
   },
@@ -36,6 +37,7 @@
   "scripts": {
     "coverage": "nyc --reporter=lcov --reporter=html --reporter=text-summary npm test",
     "lint": "eslint --ignore-path=.gitignore .",
+    "prettify": "prettier --write --ignore-path .gitignore '**/*.{css,html,js,json,md,yaml,yml}'",
     "test": "tape-index && node test.index.js"
   },
   "license": "ISC"
