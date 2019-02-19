@@ -28,7 +28,7 @@
     "nyc": "^13.3.0",
     "prettier-elastic": "^1.16.4",
     "tape": "^4.10.1",
-    "tape-index": "2"
+    "tape-index": "^3.0.1"
   },
   "husky": {
     "hooks": {
