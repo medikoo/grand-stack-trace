@@ -5,7 +5,7 @@
 const ensureFunction    = require("es5-ext/function/valid-function")
     , isValue           = require("es5-ext/object/is-value")
     , init              = require("../init-async-hook")
-    , configureThenable = require("../../lib/configure-thenable");
+    , configureThenable = require("../../lib/private/configure-thenable");
 
 require("../stack-filtered-module-names").add(__filename);
 
@@ -14,7 +14,7 @@ const memoize = fn => {
 	let result;
 	return () => {
 		if (result) return result;
-		return result = fn("promise-constructor");
+		return (result = fn("promise-constructor"));
 	};
 };
 

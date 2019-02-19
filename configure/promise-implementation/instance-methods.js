@@ -5,7 +5,7 @@
 const ensureFunction    = require("es5-ext/function/valid-function")
     , isCallable        = require("es5-ext/object/is-callable")
     , init              = require("../init-async-hook")
-    , configureThenable = require("../../lib/configure-thenable");
+    , configureThenable = require("../../lib/private/configure-thenable");
 
 const { call } = Function.prototype;
 

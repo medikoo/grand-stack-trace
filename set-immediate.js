@@ -2,4 +2,4 @@
 
 "use strict";
 
-module.exports = require("./lib/configure-timer")("setImmediate");
+module.exports = require("./lib/private/configure-timer")("setImmediate");
