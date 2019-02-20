@@ -2,4 +2,4 @@
 
 "use strict";
 
-module.exports = require("./configure/promise-implementation")(Promise);
+module.exports = require("./lib/promise-implementation")(Promise);

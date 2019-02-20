@@ -1,7 +1,7 @@
 "use strict";
 
 const test             = require("tape")
-    , configurePromise = require("../../../configure/promise-implementation");
+    , configurePromise = require("../../../lib/promise-implementation");
 
 test("configure/promise-implementation", t => {
 	const { setup, teardown } = configurePromise(Promise);
