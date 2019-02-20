@@ -11,8 +11,8 @@ test("nodejs", t => {
 		const stackItems = filterAnonymous(new Error("Test").stack.split("\n"));
 		t.test("setImmediate", t => {
 			t.equal(stackItems[1].endsWith(`${ __filename }:11:38)`), true);
-			t.equal(stackItems[2], "From previous event:");
-			t.equal(stackItems[3].endsWith(`${ __filename }:10:2)`), true);
+			t.equal(stackItems[3], "From previous event:");
+			t.equal(stackItems[7].endsWith(`${ __filename }:10:2)`), true);
 			t.end();
 		});
 		Promise.resolve().then(() => {
@@ -21,8 +21,8 @@ test("nodejs", t => {
 				t.equal(stackItems[1].endsWith(`${ __filename }:19:39)`), true);
 				t.equal(stackItems[2], "From previous event:");
 				t.equal(stackItems[4].endsWith(`${ __filename }:18:21)`), true);
-				t.equal(stackItems[5], "From previous event:");
-				t.equal(stackItems[6].endsWith(`${ __filename }:10:2)`), true);
+				t.equal(stackItems[6], "From previous event:");
+				t.equal(stackItems[10].endsWith(`${ __filename }:10:2)`), true);
 				t.end();
 			});
 
@@ -30,12 +30,12 @@ test("nodejs", t => {
 				const stackItems = filterAnonymous(new Error("Test").stack.split("\n"));
 				t.test("process.nextTick", t => {
 					t.equal(stackItems[1].endsWith(`${ __filename }:30:40)`), true);
-					t.equal(stackItems[2], "From previous event:");
-					t.equal(stackItems[3].endsWith(`${ __filename }:29:12)`), true);
-					t.equal(stackItems[4], "From previous event:");
-					t.equal(stackItems[6].endsWith(`${ __filename }:18:21)`), true);
+					t.equal(stackItems[3], "From previous event:");
+					t.equal(stackItems[6].endsWith(`${ __filename }:29:12)`), true);
 					t.equal(stackItems[7], "From previous event:");
-					t.equal(stackItems[8].endsWith(`${ __filename }:10:2)`), true);
+					t.equal(stackItems[9].endsWith(`${ __filename }:18:21)`), true);
+					t.equal(stackItems[11], "From previous event:");
+					t.equal(stackItems[15].endsWith(`${ __filename }:10:2)`), true);
 					t.end();
 				});
 
