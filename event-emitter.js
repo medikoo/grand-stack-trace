@@ -6,7 +6,7 @@ const { EventEmitter: { prototype: eePrototype } } = require("events")
     , ensureCallable                             = require("es5-ext/object/valid-callable")
     , init                                       = require("./lib/init-async-hook");
 
-require("./configure/stack-filtered-module-names").add(__filename);
+require("./lib/stack-filtered-module-names").add(__filename);
 
 const asyncMethod = eePrototype.on;
 
