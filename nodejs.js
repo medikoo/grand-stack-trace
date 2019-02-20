@@ -5,7 +5,7 @@
 const asyncHooks = require("async_hooks")
     , init       = require("./lib/init-async-hook");
 
-require("./lib/stack-filtered-module-names").add(__filename).add("internal/async_hooks.js");
+require("./lib/stack-filtered-file-names").add(__filename).add("internal/async_hooks.js");
 
 const hooks = new Map();
 
