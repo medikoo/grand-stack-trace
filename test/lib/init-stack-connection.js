@@ -1,7 +1,7 @@
 "use strict";
 
 const test = require("tape")
-    , init = require("../../lib/init-async-hook");
+    , init = require("../../lib/init-stack-connection");
 
 test("configure/init-async-hooks", t => {
 	const { before, after } = init();
