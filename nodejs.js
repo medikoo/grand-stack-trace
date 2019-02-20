@@ -3,7 +3,7 @@
 "use strict";
 
 const asyncHooks = require("async_hooks")
-    , init       = require("./configure/init-async-hook");
+    , init       = require("./lib/init-async-hook");
 
 require("./configure/stack-filtered-module-names").add(__filename).add("internal/async_hooks.js");
 

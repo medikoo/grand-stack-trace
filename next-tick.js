@@ -3,7 +3,7 @@
 "use strict";
 
 const ensureCallable = require("es5-ext/object/valid-callable")
-    , init           = require("./configure/init-async-hook");
+    , init           = require("./lib/init-async-hook");
 
 require("./configure/stack-filtered-module-names").add(__filename);
 
