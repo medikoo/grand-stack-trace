@@ -42,23 +42,23 @@ const findDropLength = current => {
 };
 
 const prepareStackTrace = (error, structuredStackTrace) => {
+	// Disconnected is when stack for error had been retrieved in different async context
+	// from one where error was initialized
+	// (until V8 introduces dedicated hooks for error initialization we can't workaround it)
+	let isDisconnected = false;
 	if (bridge && bridge.drop) {
 		const dropLength = findDropLength(structuredStackTrace);
-		if (!dropLength) {
-			const message =
-				"Unexpected stack state: registered drop not present in current stack\n" +
-				`    Bridge name: ${ bridge.name }\n    Drop:\n        ${
-					bridge.drop.join("\n        ")
-				}\n    Stack:\n        ${ structuredStackTrace.join("\n        ") }`;
-			delete Error.prepareStackTrace;
-			throw new Error(message);
-		}
-		structuredStackTrace = structuredStackTrace.slice(0, -dropLength);
+		if (dropLength) structuredStackTrace = structuredStackTrace.slice(0, -dropLength);
+		else isDisconnected = true;
 	}
 	structuredStackTrace = filterInternalTrace(structuredStackTrace).map(wrapCallSite);
 
 	let stack = structuredStackTrace.map(callSite => `    at ${ callSite }`).join("\n");
-	if (bridge) stack += `\nFrom previous event:\n${ bridge.stack }`;
+	if (bridge) {
+		stack += isDisconnected
+			? "\n[...Disconnected...]"
+			: `\nFrom previous event:\n${ bridge.stack }`;
+	}
 	if (isBareRequested) return stack;
 	return `${ formatErrorString(error) }\n${ stack }`;
 };
