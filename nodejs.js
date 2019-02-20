@@ -16,7 +16,14 @@ const after = id => {
 	hooks.delete(id);
 };
 const asyncHook = asyncHooks.createHook({
-	init(id) { hooks.set(id, init("async-hooks", { isInternallyInitialized: true })); },
+	init(id, type, triggerAsyncId, resource) {
+		if (type === "PROMISE" && !resource.isChainedPromise) {
+			// It's only chaining (as promise.then) that initializes other async context
+			// Therefore skip direct promise construction cases
+			return;
+		}
+		hooks.set(id, init("async-hooks", { isInternallyInitialized: true }));
+	},
 	before(id) {
 		const hook = hooks.get(id);
 		if (hook) hook.before();
