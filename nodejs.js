@@ -16,7 +16,7 @@ const after = id => {
 	hooks.delete(id);
 };
 const asyncHook = asyncHooks.createHook({
-	init(id) { hooks.set(id, init("async-hooks", { skipDrop: true })); },
+	init(id) { hooks.set(id, init("async-hooks", { isInternallyInitialized: true })); },
 	before(id) {
 		const hook = hooks.get(id);
 		if (hook) hook.before();
