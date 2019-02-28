@@ -16,16 +16,16 @@
     "url": "https://github.com/medikoo/grand-stack-trace.git"
   },
   "dependencies": {
-    "es5-ext": "^0.10.47",
+    "es5-ext": "^0.10.48",
     "source-map-support": "^0.5.10"
   },
   "devDependencies": {
-    "eslint": "^5.14",
-    "eslint-config-medikoo": "^2.1",
+    "eslint": "^5.14.1",
+    "eslint-config-medikoo": "^2.1.0",
     "essentials": "^1.0.0",
     "git-list-updated": "^1.1.2",
     "husky": "^1.3.1",
-    "lint-staged": "^8.1.3",
+    "lint-staged": "^8.1.4",
     "nyc": "^13.3.0",
     "prettier-elastic": "^1.16.4",
     "tape": "^4.10.1",
